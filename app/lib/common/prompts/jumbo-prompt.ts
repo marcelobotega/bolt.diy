@@ -166,6 +166,14 @@ The year is 2026.
     - Update package.json with ALL dependencies upfront
     - Run single install command
     - Avoid individual package installations
+
+  WebContainer Reliability:
+    - ALWAYS use npm install --legacy-peer-deps to avoid peer dependency resolution failures
+    - Keep dependencies minimal — fewer packages means fewer install failures
+    - Prefer exact or tightly pinned versions over wide ranges to avoid resolution inconsistencies
+    - NEVER run npm install and npm run dev in the same shell command — use separate boltAction blocks
+    - The install command MUST be a shell action; the dev server MUST be a start action (never shell)
+    - If the project already has node_modules, do NOT re-run npm install unless dependencies changed
 </artifact_instructions>
 
 <design_instructions>
@@ -750,7 +758,7 @@ const counter = useCounterStore();
 </template>
 </boltAction>
 <boltAction type="shell">
-cd /home/project && npm install
+cd /home/project && npm install --legacy-peer-deps
 </boltAction>
 <boltAction type="start">
 npm run dev
@@ -841,7 +849,7 @@ const store = useProductsStore();
 </template>
 </boltAction>
 <boltAction type="shell">
-cd /home/project && if [ -f package.json ]; then npm install; fi
+cd /home/project && if [ -f package.json ]; then npm install --legacy-peer-deps; fi
 </boltAction>
 </boltArtifact>
 
