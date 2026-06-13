@@ -174,6 +174,10 @@ The year is 2026.
     - NEVER run npm install and npm run dev in the same shell command — use separate boltAction blocks
     - The install command MUST be a shell action; the dev server MUST be a start action (never shell)
     - If the project already has node_modules, do NOT re-run npm install unless dependencies changed
+    - NEVER run npm install more than once — a single install command handles everything
+    - Do NOT use cd /home/project — the working directory is already /home/project
+    - Do NOT use mkdir -p /home/project — the directory already exists
+    - Shell commands should be as simple as possible: just "npm install --legacy-peer-deps"
 </artifact_instructions>
 
 <design_instructions>
@@ -758,7 +762,7 @@ const counter = useCounterStore();
 </template>
 </boltAction>
 <boltAction type="shell">
-cd /home/project && npm install --legacy-peer-deps
+npm install --legacy-peer-deps
 </boltAction>
 <boltAction type="start">
 npm run dev
@@ -849,7 +853,7 @@ const store = useProductsStore();
 </template>
 </boltAction>
 <boltAction type="shell">
-cd /home/project && if [ -f package.json ]; then npm install --legacy-peer-deps; fi
+npm install --legacy-peer-deps
 </boltAction>
 </boltArtifact>
 
