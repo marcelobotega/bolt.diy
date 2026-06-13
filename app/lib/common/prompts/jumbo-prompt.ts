@@ -31,7 +31,8 @@ The year is 2026.
 
   CRITICAL DESIGN RULE — YELLOW DOMINANCE:
   - Jumbo Yellow (#EEB717) is THE brand color and MUST be the dominant visual element in every design
-  - Headers, hero sections, CTAs, navigation bars, and accent elements should use Jumbo Yellow
+  - Hero/banner sections, CTAs, and accent elements should use Jumbo Yellow
+  - The navigation header component itself is WHITE (like jumbo.com) — but hero sections below it are yellow
   - The overall impression of every page should be "this is clearly a Jumbo app" — warm, yellow, inviting
   - White (#FFFFFF) and light grey (#F1F1F1) are supporting backgrounds — they frame the yellow, not replace it
   - Dark text (#171717) on yellow backgrounds for readability
@@ -87,12 +88,14 @@ The year is 2026.
   For EVERY Nuxt 4 project, ALWAYS create these files as part of the initial scaffold — even for simple landing pages:
 
   1. package.json — include at minimum:
+     dependencies:
      - "nuxt": "^4.0.0"
-     - "@nuxtjs/tailwindcss": latest stable
-     - "@pinia/nuxt": latest stable
      - "pinia": latest stable
+     - "@pinia/nuxt": latest stable
      - "vue": "^3.5.0"
-     - "vite": "^7.0.0" (Nuxt 4 uses Vite 7 internally — pin it for reliable resolution)
+     devDependencies:
+     - "@nuxtjs/tailwindcss": latest stable
+     - "vite": "^7.0.0" (Nuxt 4 uses Vite 7 internally — pin as devDependency)
 
   2. nuxt.config.ts — always include:
      - modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt']
@@ -215,9 +218,9 @@ The year is 2026.
   - Reduced motion support for users who prefer it
 
   Component Style:
-  - Buttons: rounded corners (8px), solid fill for primary, outline for secondary
-  - Cards: light border (#E3E3E3), white background, 8px radius, subtle shadow for elevation
-  - Inputs: clear borders, visible labels, error states in red (#BA0000)
+  - Buttons: pill shape (border-radius 200px), solid fill for primary, outline for secondary
+  - Cards: light border (#E3E3E3), white background, 16px radius, subtle shadow for elevation
+  - Inputs: pill-shaped container, clear borders, visible labels, error states in red (#BA0000)
   - Data tables: striped rows or hover highlights, sortable columns where appropriate
 
   KOMPAS COMPONENT PATTERNS — Exact specifications from kompas.ui source (jumbo.com style):
@@ -575,7 +578,7 @@ The year is 2026.
   Components:
   - Design reusable, modular components with consistent styling, behavior, and feedback states (e.g., hover, active, focus, error)
   - Use Tailwind utility classes with the Kompas theme extensions for all color, spacing, and typography values
-  - Include purposeful animations (e.g., scale-up on hover, fade-in on scroll) to guide attention and enhance interactivity without distraction
+  - Keep animations minimal: subtle hover color shifts and 0.2s transitions are sufficient — no scroll animations
   - Ensure full accessibility support with keyboard navigation, ARIA labels, and visible focus states
 
   User Design Scheme:
@@ -585,7 +588,7 @@ The year is 2026.
   FONT: ${JSON.stringify(designScheme.font)}
   PALETTE: ${JSON.stringify(designScheme.palette)}
   FEATURES: ${JSON.stringify(designScheme.features)}`
-      : "None provided. Use the Kompas brand palette (primary #EEB717, text #171717, secondary #757575, success #0FC647, error #E90000, warning #EC7022) as your color foundation, pair with Inter as the primary sans-serif font, and optionally add an elegant serif (e.g., Playfair Display) for headlines. Ensure the design reflects Jumbo's warm, trustworthy brand identity."
+      : "None provided. Use the Kompas brand palette (primary #EEB717, text #171717, secondary #757575, success #0FC647, error #E90000, warning #EC7022) as your color foundation. Use Jumbo TheSans as the primary font with system-ui and sans-serif as fallbacks. Ensure the design reflects Jumbo's warm, trustworthy brand identity."
   }
 
   Final Quality Check:
@@ -817,7 +820,7 @@ const counter = useCounterStore();
 
 <template>
   <div class="min-h-screen flex flex-col">
-    <header class="bg-gradient-to-br from-kompas-primary to-kompas-primary-hover py-kompas-200 px-kompas-100 text-center">
+    <header class="bg-kompas-primary py-kompas-200 px-kompas-100 text-center">
       <h1 class="text-kompas-4xl font-kompas-bold text-kompas-text-primary mb-kompas-50">Nuxt 4 + Pinia Counter</h1>
       <p class="text-kompas-text-secondary">Built with Jumbo's Kompas design tokens via Tailwind CSS</p>
     </header>
@@ -831,19 +834,19 @@ const counter = useCounterStore();
 
         <div class="flex gap-kompas-50 justify-center flex-wrap">
           <button
-            class="bg-kompas-btn-primary-bg hover:bg-kompas-btn-primary-hover text-kompas-btn-primary-text font-kompas-bold py-kompas-50 px-kompas-100 rounded-kompas-md cursor-pointer border-0 transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+            class="bg-kompas-btn-primary-bg hover:bg-kompas-btn-primary-hover text-kompas-btn-primary-text font-kompas-bold py-3 px-8 rounded-full cursor-pointer border-0 transition-colors duration-200"
             @click="counter.increment()"
           >
             + Increment
           </button>
           <button
-            class="bg-kompas-text-secondary text-kompas-white font-kompas-bold py-kompas-50 px-kompas-100 rounded-kompas-md cursor-pointer border-0 transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+            class="bg-kompas-white border border-kompas-btn-secondary-border text-kompas-text-primary font-kompas-bold py-3 px-8 rounded-full cursor-pointer transition-colors duration-200 hover:border-kompas-border-hover"
             @click="counter.decrement()"
           >
             - Decrement
           </button>
           <button
-            class="bg-transparent border border-kompas-btn-secondary-border text-kompas-btn-secondary-border font-kompas-bold py-kompas-50 px-kompas-100 rounded-kompas-md cursor-pointer transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+            class="bg-transparent text-kompas-text-primary font-kompas-bold py-3 px-8 rounded-full cursor-pointer transition-colors duration-200 hover:bg-kompas-bg-support"
             @click="counter.reset()"
           >
             Reset
@@ -912,7 +915,7 @@ const store = useProductsStore();
 
 <template>
   <div class="min-h-screen flex flex-col font-kompas bg-kompas-bg-support">
-    <header class="bg-gradient-to-br from-kompas-primary to-kompas-primary-hover py-kompas-200 px-kompas-100 text-center">
+    <header class="bg-kompas-primary py-kompas-200 px-kompas-100 text-center">
       <h1 class="text-kompas-4xl font-kompas-bold text-kompas-text-primary mb-kompas-50">Onze Producten</h1>
       <p class="text-kompas-text-secondary">{{ store.totalProducts }} producten beschikbaar</p>
     </header>
@@ -934,7 +937,7 @@ const store = useProductsStore();
             <p class="text-2xl font-kompas-bold text-kompas-primary mb-kompas-100">&euro;{{ product.price.toFixed(2) }}</p>
             <NuxtLink
               :to="\`/products/\${product.id}\`"
-              class="block text-center no-underline w-full bg-kompas-btn-primary-bg hover:bg-kompas-btn-primary-hover text-kompas-btn-primary-text font-kompas-bold py-kompas-50 px-kompas-100 rounded-kompas-md transition-transform duration-150"
+              class="block text-center no-underline w-full bg-kompas-btn-primary-bg hover:bg-kompas-btn-primary-hover text-kompas-btn-primary-text font-kompas-bold py-3 px-8 rounded-full transition-colors duration-200"
             >
               Bekijk product
             </NuxtLink>
@@ -944,9 +947,6 @@ const store = useProductsStore();
     </main>
   </div>
 </template>
-</boltAction>
-<boltAction type="shell">
-npm install --legacy-peer-deps
 </boltAction>
 </boltArtifact>
 
