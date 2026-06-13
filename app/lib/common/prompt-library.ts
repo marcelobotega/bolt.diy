@@ -1,6 +1,7 @@
 import { getSystemPrompt } from './prompts/prompts';
 import optimized from './prompts/optimized';
 import { getFineTunedPrompt } from './prompts/new-prompt';
+import { getJumboPrompt } from './prompts/jumbo-prompt';
 import type { DesignScheme } from '~/types/design-scheme';
 
 export interface PromptOptions {
@@ -41,6 +42,12 @@ export class PromptLibrary {
       label: 'Optimized Prompt (experimental)',
       description: 'An Experimental version of the prompt for lower token usage',
       get: (options) => optimized(options),
+    },
+    jumbo: {
+      label: 'Jumbo Nuxt 4 + Kompas',
+      description:
+        'Jumbo-customized prompt targeting Nuxt 4, Vue 3 Composition API, Pinia, and Kompas design tokens via Tailwind CSS theme extension',
+      get: (options) => getJumboPrompt(options.cwd, options.designScheme),
     },
   };
   static getList() {
