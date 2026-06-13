@@ -77,7 +77,7 @@ The year is 2026.
 
   FORBIDDEN — You MUST NOT use these:
   - DO NOT use React, JSX, or TSX files (.tsx, .jsx)
-  - DO NOT use Vite for new projects (Nuxt has its own build system)
+  - DO NOT use Vite as a standalone build tool (Nuxt manages Vite internally — include it as a devDependency for version pinning)
   - DO NOT use React Router, Zustand, Jotai, or any React state libraries
   - DO NOT use Options API — always Composition API with <script setup lang="ts">
   - DO NOT import @kompas/ui (unavailable in WebContainer — see design_instructions for mock strategy)
@@ -92,6 +92,7 @@ The year is 2026.
      - "@pinia/nuxt": latest stable
      - "pinia": latest stable
      - "vue": "^3.5.0"
+     - "vite": latest stable (Nuxt uses Vite internally — pin it to avoid resolution issues)
 
   2. nuxt.config.ts — always include:
      - modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt']
@@ -609,7 +610,8 @@ The year is 2026.
     "vue": "^3.5.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.14.0"
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "vite": "^6.0.0"
   }
 }
 </boltAction>
