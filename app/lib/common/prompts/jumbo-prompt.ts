@@ -220,7 +220,97 @@ The year is 2026.
   - Inputs: clear borders, visible labels, error states in red (#BA0000)
   - Data tables: striped rows or hover highlights, sortable columns where appropriate
 
-  KOMPAS DESIGN SYSTEM — JUMBO BRAND TOKENS (via Tailwind CSS):
+  KOMPAS COMPONENT PATTERNS — Exact specifications from kompas.ui source (jumbo.com style):
+
+  These are the ACTUAL patterns from Jumbo's internal design system. Follow them precisely:
+
+  BUTTON (JumButton):
+  - Border-radius: 200px (full pill shape — NOT 8px, NOT 4px, always pill)
+  - Primary: #EEB717 background, #232323 text (#171717 is close enough), font-weight 700
+  - Secondary: white background, #9E9E9E border, #171717 text
+  - Tertiary: transparent background, #171717 text (no border)
+  - Positive: #09772B background, white text (for success actions)
+  - Default size: 48px height, 18px font-size, padding 12px 32px
+  - Small size: 36px height, 16px font-size, padding 6px 16px
+  - Block: width 100%, flex justify-center
+  - Circle: equal width/height (48px or 36px), padding 0, center icon
+  - Loading state: show spinner, hide text
+  - Transition: 0.2s ease-in-out on background, border, color
+  - Focus: #0A4FFF ring via outline (2px)
+
+  CARD (JumCard):
+  - Background: white (#FFFFFF)
+  - Border: 1px solid #E3E3E3
+  - Border-radius: 16px
+  - Text color: #171717
+  - Used in grids: flex layout with equal heights
+  - Can show a small triangle arrow at bottom (like a tooltip indicator)
+
+  HEADER (JumHeader):
+  - Sticky top (position: sticky, z-index: 100)
+  - Background: white (#FFFFFF)
+  - Layout: logo left, search/utility center, actions right
+  - Navigation bar below logo on desktop (flex-wrap)
+  - Mobile: hamburger menu left, logo center, actions right
+  - Logo area: ~100px wide on mobile, ~150px on desktop
+  - Container padding: 12px vertical (mobile), 16px (desktop)
+  - Row/column gap: 8px-16px
+
+  INPUT FIELD (JumInputField):
+  - Container with border: 1px solid #757575 (default)
+  - Background: white
+  - Border-radius: large rounded (like pill shape)
+  - Height: 36px (mobile), 48px (desktop)
+  - Padding: 0 16px
+  - Font-size: 16px (mobile), 18px (desktop)
+  - Font-family: Jumbo TheSans
+  - Hover: border color changes to #464646
+  - Active/Focus: background #F1F1F1, border #464646
+  - Error: border #BA0000
+  - Valid state: shows green check icon
+  - Invalid state: shows red warning icon
+  - Error message below input in red
+  - Placeholder: #757575
+  - Support for pre/post content (icons, text)
+  - Disabled: #E3E3E3 background, #757575 text
+
+  HERO / BANNER:
+  - Yellow (#EEB717) background area
+  - Headline: bold, large (32-48px), #171717 or white text
+  - Subtext: smaller (16-18px), #171717 or white
+  - Single CTA button, pill shape, yellow or white fill
+  - Padding: 48px-64px
+
+  PRODUCT CARD (for promotions):
+  - White background, 16px border-radius, 1px #E3E3E3 border
+  - Image top: object-fit cover, consistent ratio (4:3 or 1:1)
+  - Product name: 16px, bold, #171717
+  - Price: large, bold, #171717 (or #EEB717 for promotional price)
+  - Discount badge: red #E90000 background, white text
+  - CTA button at bottom: yellow pill button
+  - Padding inside: 16px
+  - Gap between cards: 16px-24px
+
+  DATA TABLE:
+  - Header: bold, can have #F1F1F1 background
+  - Rows: white background, #E3E3E3 bottom border
+  - Hover: #FDF8E8 (light yellow tint) or #F1F1F1
+  - Sortable: small arrow next to header text
+
+  SIDEBAR:
+  - White or #F1F1F1 background
+  - Vertical stacked links
+  - Active: yellow left border or yellow background highlight
+  - Width: 240-280px desktop, full overlay mobile
+
+  MODAL / DIALOG:
+  - Backdrop: black 40% opacity
+  - White background, 16px border-radius
+  - Header: title bold, X close button top-right
+  - Content padding: 16-24px
+  - Footer: primary + secondary buttons, right-aligned
+
+   KOMPAS DESIGN SYSTEM — JUMBO BRAND TOKENS (via Tailwind CSS):
 
   @kompas/ui is NOT available in WebContainer (private package). You MUST deliver Kompas branding via Tailwind CSS theme extension. The strategy is:
     1. Install Tailwind CSS via the @nuxtjs/tailwindcss Nuxt module (add to nuxt.config.ts modules)
